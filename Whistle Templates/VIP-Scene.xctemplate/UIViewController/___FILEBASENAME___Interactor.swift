@@ -14,11 +14,11 @@ protocol ___VARIABLE_sceneName___Interactable {
 
 class ___VARIABLE_sceneName___Interactor: ___VARIABLE_sceneName___Interactable {
     var presenter: ___VARIABLE_sceneName___Presentable?
-    var dataSource: Realm?
+    var store: WLStoreable?
     let worker = WLLibrary.sharedInstance
     
     init(with persistentStore: WLStoreable) {
-        self.dataSource = persistentStore.dataSource
+        self.store = persistentStore
     }
         
         
