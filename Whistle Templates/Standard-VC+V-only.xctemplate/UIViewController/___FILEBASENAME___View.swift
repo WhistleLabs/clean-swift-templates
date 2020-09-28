@@ -8,7 +8,7 @@
 
 import Stevia
 
-class ___VARIABLE_sceneName___View: UIView {
+class ___VARIABLE_screenName___View: UIView {
     
     convenience init() {
         self.init(frame: .zero)
