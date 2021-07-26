@@ -8,36 +8,30 @@
 
 import UIKit
 
-protocol ___VARIABLE_sceneName___Displayable: class {
+protocol ___VARIABLE_sceneName___Displayable: AnyObject {
     func displaySomething(viewModel: ___VARIABLE_sceneName___Models.Something.ViewModel)
+    func displayError(viewModel: ___VARIABLE_sceneName___Models.Error.ViewModel)
 }
 
-class ___VARIABLE_sceneName___ViewController: UIViewController, WLRoutable, WLAlertable {
+class ___VARIABLE_sceneName___ViewController: WLBaseViewController<___VARIABLE_sceneName___View>, WLAlertable, WLActivityIndicatable {
     var interactor: ___VARIABLE_sceneName___Interactable?
-    let customView = ___VARIABLE_sceneName___View()
-    
-    override func loadView() { self.view = customView }
-    
-    func inject(routerParams: WLRouterParams) {
+
+    required init(routerParams: WLRouterParams) throws {
         guard let extraParams = routerParams.extraParams else {
-            assertionFailure("Unhandled dependency injection error")
-            return
+            throw WLRouterParamsError.missingParameters
         }
         //grab stuff from extraParams
+        
+        super.init()
+        setupVIP() // create VIP cycle
     }
         
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setup()
-        setupBindings()
-        
         doSomething()
     }
         
-    func setupBindings() {
-        
-    }
         
     func doSomething() {
         let request = ___VARIABLE_sceneName___Models.Something.Request()
@@ -49,9 +43,9 @@ class ___VARIABLE_sceneName___ViewController: UIViewController, WLRoutable, WLAl
 extension ___VARIABLE_sceneName___ViewController: ___VARIABLE_sceneName___Displayable {
 // MARK: CLEAN SWIFT VIP
 
-    func setup() {
+    func setupVIP() {
         let viewController = self
-        let interactor = ___VARIABLE_sceneName___Interactor(with: WLLibrary.sharedInstance.persistentStore)
+        let interactor = ___VARIABLE_sceneName___Interactor(with: WLLibrary.sharedInstance)
         let presenter = ___VARIABLE_sceneName___Presenter()
         
         viewController.interactor = interactor
@@ -61,6 +55,11 @@ extension ___VARIABLE_sceneName___ViewController: ___VARIABLE_sceneName___Displa
     
     func displaySomething(viewModel: ___VARIABLE_sceneName___Models.Something.ViewModel) {
         //someLabel.text = viewModel.name
+    }
+
+    func displayError(viewModel: ___VARIABLE_sceneName___Models.Error.ViewModel) {
+        dismissActivityIndicator()
+        showAlert(viewModel.message)
     }
 
 }

@@ -8,17 +8,14 @@
 
 import UIKit
 
-class ___VARIABLE_screenName___ViewController: UIViewController, WLRoutable, WLAlertable {
-    let customView = ___VARIABLE_screenName___View()
+class ___VARIABLE_screenName___ViewController: WLBaseViewController<___VARIABLE_screenName___View>, WLAlertable, WLActivityIndicatable {
     
-    override func loadView() { self.view = customView }
-    
-    func inject(routerParams: WLRouterParams) {
+    required init(routerParams: WLRouterParams) throws {
         guard let extraParams = routerParams.extraParams else {
-            assertionFailure("Unhandled dependency injection error")
-            return
+            throw WLRouterParamsError.missingParameters
         }
         //grab stuff from extraParams
+        super.init()
     }
         
     override func viewDidLoad() {
@@ -27,11 +24,6 @@ class ___VARIABLE_screenName___ViewController: UIViewController, WLRoutable, WLA
         //or
         //showSetupNavigationWith(" ")
         
-        setupBindings()
-        
-    }
-        
-    func setupBindings() {
         
     }
         
