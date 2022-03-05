@@ -12,13 +12,26 @@ class ___VARIABLE_sceneName___View: UIView {
     
     convenience init() {
         self.init(frame: .zero)
-        backgroundColor = .pureBackground
-        directionalLayoutMargins = WLStyles.directionalLayoutMargins
-        let margins = directionalLayoutMargins
         
-        sv(
+        configureViews()
+        configureViewHierarchy()
+        configureViewLayout()
+    }
+    
+    func configureViews() {
+        backgroundColor = Colors.pureBackground.color
+        
+    }
+    
+    func configureViewHierarchy() {
+        subviews(
             
         )
+    }
+    
+    func configureViewLayout() {
+        directionalLayoutMargins = WLStyles.directionalLayoutMargins
+        let margins = directionalLayoutMargins
         
         layout(
             
